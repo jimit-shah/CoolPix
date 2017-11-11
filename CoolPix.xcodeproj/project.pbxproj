@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		EF5A58DB1FB7723C00D2E015 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */; };
+		EF5A58DE1FB7835400D2E015 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58DD1FB7835400D2E015 /* ImageCell.m */; };
+		EF5A58E11FB7849E00D2E015 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58E01FB7849E00D2E015 /* Dog.m */; };
+		EF5A58E51FB785E800D2E015 /* HTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58E41FB785E800D2E015 /* HTTPService.m */; };
 		EF8DD3261FB6923A00CA746B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD3251FB6923A00CA746B /* AppDelegate.m */; };
 		EF8DD3291FB6923A00CA746B /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD3281FB6923A00CA746B /* CollectionViewController.m */; };
 		EF8DD32C1FB6923A00CA746B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF8DD32A1FB6923A00CA746B /* Main.storyboard */; };
@@ -20,6 +23,12 @@
 /* Begin PBXFileReference section */
 		EF5A58D91FB7723C00D2E015 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		EF5A58DC1FB7835400D2E015 /* ImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
+		EF5A58DD1FB7835400D2E015 /* ImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
+		EF5A58DF1FB7849E00D2E015 /* Dog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dog.h; sourceTree = "<group>"; };
+		EF5A58E01FB7849E00D2E015 /* Dog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dog.m; sourceTree = "<group>"; };
+		EF5A58E31FB785E800D2E015 /* HTTPService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPService.h; sourceTree = "<group>"; };
+		EF5A58E41FB785E800D2E015 /* HTTPService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTTPService.m; sourceTree = "<group>"; };
 		EF8DD3211FB6923A00CA746B /* CoolPix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolPix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8DD3241FB6923A00CA746B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EF8DD3251FB6923A00CA746B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -47,6 +56,8 @@
 		EF5A58D51FB7713300D2E015 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EF5A58DF1FB7849E00D2E015 /* Dog.h */,
+				EF5A58E01FB7849E00D2E015 /* Dog.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -65,6 +76,8 @@
 		EF5A58D71FB7714E00D2E015 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EF5A58DC1FB7835400D2E015 /* ImageCell.h */,
+				EF5A58DD1FB7835400D2E015 /* ImageCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -72,8 +85,19 @@
 		EF5A58D81FB7715F00D2E015 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EF8DD32A1FB6923A00CA746B /* Main.storyboard */,
+				EF8DD3301FB6923A00CA746B /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF5A58E21FB785BC00D2E015 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EF5A58E31FB785E800D2E015 /* HTTPService.h */,
+				EF5A58E41FB785E800D2E015 /* HTTPService.m */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		EF8DD3181FB6923A00CA746B = {
@@ -95,14 +119,13 @@
 		EF8DD3231FB6923A00CA746B /* CoolPix */ = {
 			isa = PBXGroup;
 			children = (
+				EF8DD3241FB6923A00CA746B /* AppDelegate.h */,
+				EF8DD3251FB6923A00CA746B /* AppDelegate.m */,
+				EF5A58E21FB785BC00D2E015 /* Services */,
 				EF5A58D81FB7715F00D2E015 /* Supporting Files */,
 				EF5A58D71FB7714E00D2E015 /* Views */,
 				EF5A58D61FB7714400D2E015 /* Controllers */,
 				EF5A58D51FB7713300D2E015 /* Models */,
-				EF8DD3241FB6923A00CA746B /* AppDelegate.h */,
-				EF8DD3251FB6923A00CA746B /* AppDelegate.m */,
-				EF8DD32A1FB6923A00CA746B /* Main.storyboard */,
-				EF8DD3301FB6923A00CA746B /* Assets.xcassets */,
 				EF8DD3321FB6923A00CA746B /* LaunchScreen.storyboard */,
 				EF8DD3351FB6923A00CA746B /* Info.plist */,
 				EF8DD3361FB6923A00CA746B /* main.m */,
@@ -183,8 +206,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF8DD32F1FB6923A00CA746B /* CoolPix.xcdatamodeld in Sources */,
+				EF5A58E51FB785E800D2E015 /* HTTPService.m in Sources */,
+				EF5A58DE1FB7835400D2E015 /* ImageCell.m in Sources */,
 				EF8DD3291FB6923A00CA746B /* CollectionViewController.m in Sources */,
 				EF8DD3371FB6923A00CA746B /* main.m in Sources */,
+				EF5A58E11FB7849E00D2E015 /* Dog.m in Sources */,
 				EF5A58DB1FB7723C00D2E015 /* HistoryViewController.m in Sources */,
 				EF8DD3261FB6923A00CA746B /* AppDelegate.m in Sources */,
 			);
