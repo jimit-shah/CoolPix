@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF5A58DB1FB7723C00D2E015 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */; };
 		EF8DD3261FB6923A00CA746B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD3251FB6923A00CA746B /* AppDelegate.m */; };
-		EF8DD3291FB6923A00CA746B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD3281FB6923A00CA746B /* ViewController.m */; };
+		EF8DD3291FB6923A00CA746B /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD3281FB6923A00CA746B /* CollectionViewController.m */; };
 		EF8DD32C1FB6923A00CA746B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF8DD32A1FB6923A00CA746B /* Main.storyboard */; };
 		EF8DD32F1FB6923A00CA746B /* CoolPix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD32D1FB6923A00CA746B /* CoolPix.xcdatamodeld */; };
 		EF8DD3311FB6923A00CA746B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8DD3301FB6923A00CA746B /* Assets.xcassets */; };
@@ -17,11 +18,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF5A58D91FB7723C00D2E015 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		EF8DD3211FB6923A00CA746B /* CoolPix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoolPix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF8DD3241FB6923A00CA746B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EF8DD3251FB6923A00CA746B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		EF8DD3271FB6923A00CA746B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		EF8DD3281FB6923A00CA746B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EF8DD3271FB6923A00CA746B /* CollectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		EF8DD3281FB6923A00CA746B /* CollectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		EF8DD32B1FB6923A00CA746B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EF8DD32E1FB6923A00CA746B /* CoolPix.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoolPix.xcdatamodel; sourceTree = "<group>"; };
 		EF8DD3301FB6923A00CA746B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +44,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EF5A58D51FB7713300D2E015 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EF5A58D61FB7714400D2E015 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EF8DD3271FB6923A00CA746B /* CollectionViewController.h */,
+				EF8DD3281FB6923A00CA746B /* CollectionViewController.m */,
+				EF5A58D91FB7723C00D2E015 /* HistoryViewController.h */,
+				EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		EF5A58D71FB7714E00D2E015 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EF5A58D81FB7715F00D2E015 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		EF8DD3181FB6923A00CA746B = {
 			isa = PBXGroup;
 			children = (
@@ -60,10 +95,12 @@
 		EF8DD3231FB6923A00CA746B /* CoolPix */ = {
 			isa = PBXGroup;
 			children = (
+				EF5A58D81FB7715F00D2E015 /* Supporting Files */,
+				EF5A58D71FB7714E00D2E015 /* Views */,
+				EF5A58D61FB7714400D2E015 /* Controllers */,
+				EF5A58D51FB7713300D2E015 /* Models */,
 				EF8DD3241FB6923A00CA746B /* AppDelegate.h */,
 				EF8DD3251FB6923A00CA746B /* AppDelegate.m */,
-				EF8DD3271FB6923A00CA746B /* ViewController.h */,
-				EF8DD3281FB6923A00CA746B /* ViewController.m */,
 				EF8DD32A1FB6923A00CA746B /* Main.storyboard */,
 				EF8DD3301FB6923A00CA746B /* Assets.xcassets */,
 				EF8DD3321FB6923A00CA746B /* LaunchScreen.storyboard */,
@@ -146,8 +183,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF8DD32F1FB6923A00CA746B /* CoolPix.xcdatamodeld in Sources */,
-				EF8DD3291FB6923A00CA746B /* ViewController.m in Sources */,
+				EF8DD3291FB6923A00CA746B /* CollectionViewController.m in Sources */,
 				EF8DD3371FB6923A00CA746B /* main.m in Sources */,
+				EF5A58DB1FB7723C00D2E015 /* HistoryViewController.m in Sources */,
 				EF8DD3261FB6923A00CA746B /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

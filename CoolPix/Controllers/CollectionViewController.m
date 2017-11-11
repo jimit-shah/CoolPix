@@ -6,13 +6,13 @@
 //  Copyright © 2017 Jimit Shah. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "CollectionViewController.h"
 
-@interface ViewController ()
+@interface CollectionViewController ()
 
 @end
 
-@implementation ViewController
+@implementation CollectionViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
