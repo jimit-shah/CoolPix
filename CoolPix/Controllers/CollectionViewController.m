@@ -72,20 +72,24 @@
 
 #pragma mark clearHistory
 - (IBAction)clearHistory:(id)sender {
-  [[self imageList]removeAllObjects];
+  int count = 0;
   
   [self initializeFetchedResultsController];
-  for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
-    [context deleteObject:image];
+  if (self.fetchedResultsController.fetchedObjects.count > 0) {
+    [[self imageList]removeAllObjects];
+    for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
+      [context deleteObject:image];
+      count = count + 1;
+    }
+    [appDelegate saveContext];
+    // relooad collection view after delete.
+    [self updateUI];
+    NSLog(@"All history deleted %@", [@(count) stringValue]);
+    [self showAlert:nil :@"All history deleted!"];
+  } else {
+    [self showAlert:nil :@"Nothing to delete!"];
   }
-  
-  [appDelegate saveContext];
-  
-  // relooad collection view after delete.
-  [self updateUI];
-  NSLog(@"All history deleted.");
 }
-
 
 # pragma mark -GET Images (HTTP Get)
 -(void) getImages {
@@ -120,7 +124,9 @@
       
     } else if (errMessage){
       NSLog(@"Error: %@", errMessage);
+      
       [self updateUI];
+      [self showAlert:@"Error" :@"Something went wrong, please try again."];
     }
   }];
 }
@@ -277,6 +283,16 @@
     [[self collectionView]setAlpha:1.0];
     [activityIndicator stopAnimating];
   }
+}
+
+#pragma mark showAlert
+-(void) showAlert :(nullable NSString *)title :(nonnull NSString *)message {
+  UIAlertController * alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+  
+  UIAlertAction* okButton = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+  
+  [alert addAction:okButton];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - UICollection View Flow Layout
