@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 @interface HistoryCell : UITableViewCell
 
 - (void)updateUI:(NSNumber*)item;
+//-(void)configureCell :(NSManagedObject*)object;
 
 @end

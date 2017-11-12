@@ -38,17 +38,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uHn-uW-xfz">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uHn-uW-xfz">
+                                <rect key="frame" x="0.0" y="88" width="375" height="575"/>
                                 <color key="backgroundColor" red="0.96081585120000002" green="1" blue="0.37982854960000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="h3B-kv-Oy0">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="h3B-kv-Oy0">
                                     <size key="itemSize" width="180" height="156"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="pkA-7D-Aro" customClass="ImageCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" reuseIdentifier="ImageCell" id="pkA-7D-Aro" customClass="ImageCell">
                                         <rect key="frame" x="0.0" y="0.0" width="180" height="156"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -61,10 +61,10 @@
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="xDV-nA-cxM" firstAttribute="leading" secondItem="pkA-7D-Aro" secondAttribute="leading" id="Bsg-02-eEb"/>
-                                            <constraint firstAttribute="bottom" secondItem="xDV-nA-cxM" secondAttribute="bottom" id="InV-Jr-TsZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="xDV-nA-cxM" secondAttribute="trailing" id="TRf-6K-qZo"/>
-                                            <constraint firstItem="xDV-nA-cxM" firstAttribute="top" secondItem="pkA-7D-Aro" secondAttribute="top" id="z2T-Ob-1la"/>
+                                            <constraint firstAttribute="bottom" secondItem="xDV-nA-cxM" secondAttribute="bottom" id="7qq-Te-cAc"/>
+                                            <constraint firstAttribute="trailing" secondItem="xDV-nA-cxM" secondAttribute="trailing" id="9pU-VW-EsW"/>
+                                            <constraint firstItem="xDV-nA-cxM" firstAttribute="leading" secondItem="pkA-7D-Aro" secondAttribute="leading" id="Tfw-wR-6a6"/>
+                                            <constraint firstItem="xDV-nA-cxM" firstAttribute="top" secondItem="pkA-7D-Aro" secondAttribute="top" id="b92-zR-p0R"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="xDV-nA-cxM" id="T19-YZ-clu"/>
@@ -122,12 +122,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Zli-8T-xzg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2HX-51-nJR"/>
-                            <constraint firstItem="uHn-uW-xfz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aec-Yj-20R"/>
-                            <constraint firstItem="uHn-uW-xfz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="dvM-aW-Ydc"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uHn-uW-xfz" secondAttribute="trailing" id="iHM-dz-2by"/>
+                            <constraint firstItem="Zli-8T-xzg" firstAttribute="top" secondItem="uHn-uW-xfz" secondAttribute="bottom" id="2M2-1e-SaC"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="69w-rl-cG8"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="C2L-sg-olE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Zli-8T-xzg" secondAttribute="bottom" id="nVP-7A-1Pp"/>
                             <constraint firstItem="Zli-8T-xzg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oOS-fS-cwT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uHn-uW-xfz" secondAttribute="bottom" id="u9g-yW-9ye"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="oq0-J2-VxF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -140,12 +140,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="uHn-uW-xfz" id="1Nn-j3-SI8"/>
+                        <outlet property="flowLayout" destination="h3B-kv-Oy0" id="Tua-na-fFT"/>
+                        <outlet property="historyButton" destination="P3z-4L-Ma4" id="nBf-CV-7Cq"/>
                         <segue destination="goT-xg-dnN" kind="show" identifier="historySegue" id="aBY-fk-z9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="37.600000000000001" y="-135.38230884557723"/>
+            <point key="canvasLocation" x="37.600000000000001" y="-135.96059113300493"/>
         </scene>
         <!--History-->
         <scene sceneID="Pfv-pc-0m5">

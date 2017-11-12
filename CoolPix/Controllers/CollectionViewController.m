@@ -16,18 +16,26 @@
 @interface CollectionViewController () {
   AppDelegate *appDelegate;
   NSManagedObjectContext *context;
+  CGFloat inset;
+  CGFloat spacing;
+  CGFloat lineSpacing;
 }
 
 #pragma mark - Properties
 @property (nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSMutableArray *imageList;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
 #pragma mark - Outlets
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *historyButton;
+@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
 
 @end
 
 @implementation CollectionViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -38,6 +46,12 @@
   
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
+  
+  inset = 8.0;
+  spacing = 8.0;
+  lineSpacing = 8.0;
+  
+  self.spinner = [[UIActivityIndicatorView alloc]init];
   
   if (_imageList == nil) {
     _imageList = [[NSMutableArray alloc]init];
@@ -63,17 +77,11 @@
 - (IBAction)clearHistory:(id)sender {
   [[self imageList]removeAllObjects];
   
-//  for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
-//    [image isDeleted];
-//  }
-//
-  [context deletedObjects];
-
-//  NSError *error = nil;
-//  if(![context save:&error]) {
-//    NSLog(@"Failed to save after delete- error: %@", [error localizedDescription]);
-//  }
-
+  [self initializeFetchedResultsController];
+  for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
+    [context deleteObject:image];
+  }
+  
   [appDelegate saveContext];
   
   // relooad collection view after delete.
@@ -84,6 +92,9 @@
 
 # pragma mark -getImages
 -(void) getImages {
+  
+  [[self historyButton]setEnabled:false];
+  [self startSpinner:self :[self spinner]];
   
   [[HTTPService instance]getImages:^(NSDictionary * _Nullable dataDict, NSString * _Nullable errMessage) {
     if (dataDict) {
@@ -112,6 +123,7 @@
       
     } else if (errMessage){
       NSLog(@"Error: %@", errMessage);
+      [self stopSpinner:self :self.spinner];
     }
   }];
 }
@@ -138,38 +150,36 @@
     NSArray *newMinusOldArray = [newMinusOldSet allObjects];
     
     if (newMinusOldSet.count > 0) {
-    [_imageList addObjectsFromArray:newMinusOldArray];
-    NSLog(@"%@ New-Old images added:",[@(newMinusOldArray.count) stringValue]);
-
-    // save only new IDs entity
-    NSSet* newMinusOldIds = [newMinusOldSet valueForKey:@"imageId"];
-    [self saveData:newMinusOldIds];
+      [_imageList addObjectsFromArray:newMinusOldArray];
+      //NSLog(@"%@ New-Old images added:",[@(newMinusOldArray.count) stringValue]);
+      
+      // save only new IDs entity
+      NSSet* newMinusOldIds = [newMinusOldSet valueForKey:@"imageId"];
+      [self saveData:newMinusOldIds];
     }
-    
   } else {
-    
     // add all images to list.
     [_imageList addObjectsFromArray:images];
     
     //save all IDs to entity
     [self saveData:newIDs];
-    NSLog(@"%@ NEW -Images added.",[@(images.count) stringValue]);
+    //NSLog(@"%@ NEW -Images added.",[@(images.count) stringValue]);
   }
 }
 
 - (void) saveData :(NSSet *)images {
   
   for (NSSet *imageID in images) {
-    NSLog(@"Saving data for imageID: %@", imageID);
+    //NSLog(@"Saving data for imageID: %@", imageID);
     
     NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
     [object setValue:imageID forKey:@"imageId"];
     
-//    NSError *error = nil;
-//    if(![context save:&error]) {
-//      NSLog(@"Failed to save - error: %@", [error localizedDescription]);
-//    }
     [appDelegate saveContext];
+    //    NSError *error = nil;
+    //    if(![context save:&error]) {
+    //      NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+    //    }
   }
 }
 
@@ -177,6 +187,8 @@
 -(void) updateCollectionViewData {
   dispatch_async(dispatch_get_main_queue(), ^{
     [self.collectionView reloadData];
+    [self stopSpinner:self :[self spinner]];
+    [[self historyButton]setEnabled:true];
   });
 }
 
@@ -207,10 +219,10 @@
 #pragma mark - Collection view delegate
 
 #pragma mark didSelectItemAtIndexPath
- - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-// NSString *selected = [self.imageList objectAtIndex:indexPath.row];
-// NSLog(@"selected=%@", selected);
- }
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  // NSString *selected = [self.imageList objectAtIndex:indexPath.row];
+  // NSLog(@"selected=%@", selected);
+}
 
 
 #pragma mark - Initialize fetched results controller
@@ -232,20 +244,59 @@
   }
 }
 
-#pragma mark - Prepare for segue
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//  if ([[segue identifier] isEqualToString:@"historySegue"]) {
-//    
-//    HistoryViewController *vc = (HistoryViewController *)segue.destinationViewController;
-//    NSArray *results = self.fetchedResultsController.fetchedObjects;
-//    NSSet* newset = [NSSet setWithArray:results];
-//    NSSet* newIDs = [newset valueForKey:@"imageId"];
-//    NSArray *arrList = [newIDs allObjects];
-//    NSLog(@"arrayList prepareSegue: %@",arrList);
-//    vc.array = arrList;
-//  }
-//}
+#pragma mark Start/Show spinner
+-(void) startSpinner:(UIViewController *)controller :(UIActivityIndicatorView*)activityIndicator {
+  [activityIndicator setCenter:(controller.view.center)];
+  [activityIndicator setHidesWhenStopped:true];
+  [activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+  
+  [[self collectionView]setAlpha:0.6];
+  
+  [[self collectionView]setBackgroundColor:[UIColor darkGrayColor]];
+  [controller.view addSubview:activityIndicator];
+  [activityIndicator setAlpha:1.0];
+  [activityIndicator startAnimating];
+}
 
+#pragma mark Stop/Hide spinner
+-(void) stopSpinner:(UIViewController *)controller :(UIActivityIndicatorView*)activityIndicator {
+  if (activityIndicator.isAnimating) {
+    
+    [[self collectionView]setBackgroundColor:[UIColor whiteColor]];
+    [[self collectionView]setAlpha:1.0];
+    [activityIndicator stopAnimating];
+  }
+}
 
+#pragma mark UICollection View Flow Layout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+  CGRect screenRect = [[UIScreen mainScreen] bounds];
+  CGFloat screenWidth = screenRect.size.width;
+  float cellWidth = ((screenWidth) / 2.0 - (inset + spacing));
+  CGSize size = CGSizeMake(cellWidth, cellWidth);
+  return size;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+
+  return UIEdgeInsetsMake(inset, inset, inset, inset);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+
+  return inset;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+  
+  return inset;
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+  
+  [self.collectionView.collectionViewLayout invalidateLayout];
+}
 
 @end

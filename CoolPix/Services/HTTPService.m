@@ -70,7 +70,7 @@
           completionHandler(nil, @"Data parsing error.");
         }
       } else {
-        completionHandler(nil, @"Your request returned a status code other than 2xx!");
+        completionHandler(nil, @"Your request returned a status code other than 2xx!, please try again.");
       }
     } else {
       NSLog(@"Network Error: %@", error.debugDescription);

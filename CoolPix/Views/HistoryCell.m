@@ -25,5 +25,10 @@
   [[self titleLabel]setText:[NSString stringWithFormat:@"dog-%@",item]];
 }
 
+//-(void)configureCell :(NSManagedObject*)object {
+//
+//  [[self titleLabel] setText:[NSString stringWithFormat:@"dog%@",[object valueForKey:@"imageId"]]];
+//}
+
 
 @end

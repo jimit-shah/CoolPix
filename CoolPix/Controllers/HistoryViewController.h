@@ -11,6 +11,5 @@
 
 @interface HistoryViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
-//@property (nonatomic, strong) NSArray *array;
 
 @end

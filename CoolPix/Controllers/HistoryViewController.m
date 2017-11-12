@@ -8,17 +8,17 @@
 
 #import "HistoryViewController.h"
 #import "HistoryCell.h"
-//#import "Image+CoreDataClass.h"
 #import "AppDelegate.h"
-
 
 @interface HistoryViewController () {
   AppDelegate *appDelegate;
   NSManagedObjectContext *context;
 }
 
+#pragma mark - Outlets
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+#pragma mark - Properties
 @property (nonatomic, strong) NSArray *historyList;
 
 @end
@@ -27,8 +27,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  
-  
   
   // Get Context
   appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -45,8 +43,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-
-  self.historyList = nil;
+  
   [self getImages];
 }
 
@@ -80,28 +77,31 @@
 
 #pragma mark - Helper methods
 -(void) updateTableViewData {
+  //if initiated in background queue.
   dispatch_async(dispatch_get_main_queue(), ^{
     [self.tableView reloadData];
   });
 }
 
+# pragma mark - getImages (fetch from Database)
 -(void) getImages {
   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Image"];
   
   NSError *error = nil;
   NSArray *results = [context executeFetchRequest:request error:&error];
   if (!results) {
-    NSLog(@"Error fetching Employee objects: %@\n%@", [error localizedDescription], [error userInfo]);
+    NSLog(@"Error fetching Image objects: %@\n%@", [error localizedDescription], [error userInfo]);
     abort();
   }
   
-      NSSet* newset = [NSSet setWithArray:results];
-      NSSet* fetchedIDs = [newset valueForKey:@"imageId"];
-      NSArray *arrList = [fetchedIDs allObjects];
-      NSLog(@"arrayList prepareSegue: %@",arrList);
-
+  // pick IDs from fetch result and store in array list.
+  NSSet* newset = [NSSet setWithArray:results];
+  NSSet* fetchedIDs = [newset valueForKey:@"imageId"];
+  NSArray *arrList = [fetchedIDs allObjects];
+  
   self.historyList = arrList;
-  [self.tableView reloadData];
+  [self updateTableViewData];
 }
+
 
 @end
