@@ -40,7 +40,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uHn-uW-xfz">
                                 <rect key="frame" x="0.0" y="88" width="375" height="575"/>
-                                <color key="backgroundColor" red="0.96081585120000002" green="1" blue="0.37982854960000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="h3B-kv-Oy0">
                                     <size key="itemSize" width="180" height="156"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -76,13 +76,13 @@
                                 <rect key="frame" x="0.0" y="663" width="375" height="115"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VVq-fC-y8e">
-                                        <rect key="frame" x="126" y="18.666666666666629" width="123" height="79"/>
+                                        <rect key="frame" x="114.66666666666669" y="18.666666666666629" width="147" height="79"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kv-HG-m1K">
-                                                <rect key="frame" x="0.0" y="0.0" width="123" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="147" height="40"/>
                                                 <color key="backgroundColor" red="0.01151769608259201" green="0.55232739448547363" blue="0.87317311763763428" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                                <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                <inset key="contentEdgeInsets" minX="20" minY="8" maxX="20" maxY="8"/>
                                                 <state key="normal" title="Fetch Dogs">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -91,13 +91,13 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v36-OV-cbh">
-                                                <rect key="frame" x="17.666666666666657" y="48" width="88" height="31"/>
-                                                <color key="backgroundColor" red="0.011517696080000001" green="0.55232739450000001" blue="0.87317311760000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="17.666666666666671" y="48" width="112.00000000000001" height="31"/>
+                                                <color key="backgroundColor" red="0.83246748100000001" green="0.088623225819999998" blue="0.074618214569999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="AmR-aI-Ze7"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
-                                                <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                <inset key="contentEdgeInsets" minX="20" minY="8" maxX="20" maxY="8"/>
                                                 <state key="normal" title="Clear History">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -139,7 +139,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="clearHistoryButton" destination="v36-OV-cbh" id="ikv-Nx-7ej"/>
                         <outlet property="collectionView" destination="uHn-uW-xfz" id="1Nn-j3-SI8"/>
+                        <outlet property="fetchDogsButton" destination="5Kv-HG-m1K" id="rZg-p9-8WK"/>
                         <outlet property="flowLayout" destination="h3B-kv-Oy0" id="Tua-na-fFT"/>
                         <outlet property="historyButton" destination="P3z-4L-Ma4" id="nBf-CV-7Cq"/>
                         <segue destination="goT-xg-dnN" kind="show" identifier="historySegue" id="aBY-fk-z9w"/>

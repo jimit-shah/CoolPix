@@ -16,14 +16,18 @@
 }
 
 #pragma mark - Outlets
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 #pragma mark - Properties
+
 @property (nonatomic, strong) NSArray *historyList;
 
 @end
 
 @implementation HistoryViewController
+
+#pragma mark Lifecycle
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -47,10 +51,14 @@
   [self getImages];
 }
 
+#pragma mark - table view datasource
+
+# pragma mark numberOfRowsInSection
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return self.historyList.count;
 }
 
+# pragma mark cellForRowAt
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
   HistoryCell *cell = (HistoryCell*)[tableView dequeueReusableCellWithIdentifier:@"HistoryCell" forIndexPath:indexPath];
@@ -58,19 +66,23 @@
   if (!cell) {
     cell = [[HistoryCell alloc]init];
   }
-  
   return cell;
 }
 
+#pragma mark - table view delegates
+
+#pragma mark - willDisplayCell atIndexPath
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
   NSNumber *item = [self.historyList objectAtIndex:indexPath.row];
   HistoryCell *histCell = (HistoryCell*)cell;
   [histCell updateUI:item];
 }
 
+#pragma mark didSelectRowAt atIndexPath
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
+#pragma mark numberOfSections inTableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
   return 1;
 }
@@ -84,6 +96,7 @@
 }
 
 # pragma mark - getImages (fetch from Database)
+
 -(void) getImages {
   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Image"];
   

@@ -74,7 +74,7 @@
       }
     } else {
       NSLog(@"Network Error: %@", error.debugDescription);
-      completionHandler(nil, @"Problem connecting to the server, please try again later.");
+      completionHandler(nil, @"Network issue, please try again later.");
     }
   }];
   [downloadTask resume];

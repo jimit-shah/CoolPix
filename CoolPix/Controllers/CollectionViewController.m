@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  CollectionViewController.m
 //  CoolPix
 //
 //  Created by Jimit Shah on 11/10/17.
@@ -30,13 +30,14 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *historyButton;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
+@property (weak, nonatomic) IBOutlet UIButton *fetchDogsButton;
+@property (weak, nonatomic) IBOutlet UIButton *clearHistoryButton;
 
 @end
 
 @implementation CollectionViewController
 
 #pragma mark - Lifecycle
-
 - (void)viewDidLoad {
   [super viewDidLoad];
   
@@ -47,11 +48,8 @@
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
   
-  inset = 8.0;
-  spacing = 8.0;
-  lineSpacing = 8.0;
-  
-  self.spinner = [[UIActivityIndicatorView alloc]init];
+  // configure UI
+  [self configureUI];
   
   if (_imageList == nil) {
     _imageList = [[NSMutableArray alloc]init];
@@ -59,7 +57,6 @@
   
   [self initializeFetchedResultsController];
   [self getImages];
-  
 }
 
 #pragma mark - Actions
@@ -85,12 +82,12 @@
   [appDelegate saveContext];
   
   // relooad collection view after delete.
-  [self updateCollectionViewData];
+  [self updateUI];
   NSLog(@"All history deleted.");
 }
 
 
-# pragma mark -getImages
+# pragma mark -GET Images (HTTP Get)
 -(void) getImages {
   
   [[self historyButton]setEnabled:false];
@@ -119,11 +116,11 @@
       [self updateHistoryList:array];
       
       // refresh data in collection view
-      [self updateCollectionViewData];
+      [self updateUI];
       
     } else if (errMessage){
       NSLog(@"Error: %@", errMessage);
-      [self stopSpinner:self :self.spinner];
+      [self updateUI];
     }
   }];
 }
@@ -149,42 +146,57 @@
     //Now convert back to Array from sets
     NSArray *newMinusOldArray = [newMinusOldSet allObjects];
     
-    if (newMinusOldSet.count > 0) {
-      [_imageList addObjectsFromArray:newMinusOldArray];
-      //NSLog(@"%@ New-Old images added:",[@(newMinusOldArray.count) stringValue]);
-      
+    if (newMinusOldSet.count == 20) {
       // save only new IDs entity
       NSSet* newMinusOldIds = [newMinusOldSet valueForKey:@"imageId"];
+      [_imageList addObjectsFromArray:newMinusOldArray];
       [self saveData:newMinusOldIds];
+    } else {
+      //fetch images again from main queue.
+      dispatch_async(dispatch_get_main_queue(), ^{
+        [self getImages];
+      });
     }
   } else {
     // add all images to list.
     [_imageList addObjectsFromArray:images];
+    NSLog(@"%@ NEW Images added to list.",[@(images.count) stringValue]);
     
     //save all IDs to entity
     [self saveData:newIDs];
-    //NSLog(@"%@ NEW -Images added.",[@(images.count) stringValue]);
   }
 }
 
 - (void) saveData :(NSSet *)images {
-  
+  int count = 0;
   for (NSSet *imageID in images) {
-    //NSLog(@"Saving data for imageID: %@", imageID);
-    
-    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
-    [object setValue:imageID forKey:@"imageId"];
-    
-    [appDelegate saveContext];
-    //    NSError *error = nil;
-    //    if(![context save:&error]) {
-    //      NSLog(@"Failed to save - error: %@", [error localizedDescription]);
-    //    }
+    if (count <= 20 ) {
+      NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
+      [object setValue:imageID forKey:@"imageId"];
+      
+      [appDelegate saveContext];
+      count = count + 1;
+    }
   }
+  NSLog(@"Images saved on disk: %@", [@(count) stringValue]);
 }
 
 #pragma mark - Helper methods
--(void) updateCollectionViewData {
+
+# pragma makr configureUI
+- (void)configureUI {
+  inset = 15.0;
+  spacing = 10.0;
+  lineSpacing = 15.0;
+  
+  self.clearHistoryButton.layer.cornerRadius = 5.0;
+  self.fetchDogsButton.layer.cornerRadius = 5.0;
+  
+  self.spinner = [[UIActivityIndicatorView alloc]init];
+}
+
+# pragma mark updateUI
+-(void) updateUI {
   dispatch_async(dispatch_get_main_queue(), ^{
     [self.collectionView reloadData];
     [self stopSpinner:self :[self spinner]];
@@ -220,8 +232,7 @@
 
 #pragma mark didSelectItemAtIndexPath
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  // NSString *selected = [self.imageList objectAtIndex:indexPath.row];
-  // NSLog(@"selected=%@", selected);
+  // no need.
 }
 
 
@@ -268,10 +279,10 @@
   }
 }
 
-#pragma mark UICollection View Flow Layout
+#pragma mark - UICollection View Flow Layout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-
+  
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenWidth = screenRect.size.width;
   float cellWidth = ((screenWidth) / 2.0 - (inset + spacing));
@@ -280,12 +291,12 @@
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-
+  
   return UIEdgeInsetsMake(inset, inset, inset, inset);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-
+  
   return inset;
 }
 
