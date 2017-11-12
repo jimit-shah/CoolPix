@@ -31,6 +31,10 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  // Get Context
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+  context = appDelegate.persistentContainer.viewContext;
+  
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
   
@@ -38,21 +42,31 @@
     _imageList = [[NSMutableArray alloc]init];
   }
   
+  [self initializeFetchedResultsController];
   [self getImages];
   
 }
 
 #pragma mark - Actions
 
+#pragma mark fetchDogs
 - (IBAction)fetchDogs:(id)sender {
   [self getImages];
 }
+
+#pragma mark clearHistory
 - (IBAction)clearHistory:(id)sender {
   [[self imageList]removeAllObjects];
   
   for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
     [image isDeleted];
   }
+  
+//  NSError *error = nil;
+//  if(![context save:&error]) {
+//    NSLog(@"Failed to save after delete- error: %@", [error localizedDescription]);
+//  }
+//
   [appDelegate saveContext];
   
   // relooad collection view after delete.
@@ -78,17 +92,15 @@
             Dog *image = [[Dog alloc]init];
             image.imageId = [images objectForKey:@"id"];
             image.imageURL = [images objectForKey:@"webformatURL"];
-            
             [array addObject:image];
-            
           }
         }
       }
       
       // Add to the list
       [self updateHistoryList:array];
-      //NSLog(@"ImageList Count: %@",[@(self.imageList.count) stringValue]);
       
+      // refresh data in collection view
       [self updateCollectionViewData];
       
     } else if (errMessage){
@@ -102,35 +114,57 @@
 {
   NSArray *results = [self fetchedResultsController].fetchedObjects;
   
+  //Create NSSet from Array
+  NSSet* oldset = [NSSet setWithArray:results];
+  NSSet* newset = [NSSet setWithArray:images];
+  
+  // retrieve the Name of the objects in oldset
+  NSSet* newIDs = [newset valueForKey:@"imageId"];
+  NSSet* existingIDs = [oldset valueForKey:@"imageId"];
+  
   if (results.count > 0) {
-    //Create NSSet from Array
-    NSSet* oldset = [NSSet setWithArray:results];
-    NSSet* newset = [NSSet setWithArray:images];
     
-    // retrieve the Name of the objects in oldset
-    NSSet* existingIDs = [oldset valueForKey:@"imageId"];
     NSSet* newMinusOldSet = [newset filteredSetUsingPredicate:
                              [NSPredicate predicateWithFormat:@"NOT imageId IN %@",existingIDs]];
     
     //Now convert back to Array from sets
     NSArray *newMinusOldArray = [newMinusOldSet allObjects];
     
+    if (newMinusOldSet.count > 0) {
     [_imageList addObjectsFromArray:newMinusOldArray];
     NSLog(@"%@ New-Old images added:",[@(newMinusOldArray.count) stringValue]);
-    
-    for (NSSet *image in newMinusOldSet) {
-      NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:context];
-      [object setValue:image forKey:@"imageId"];
-      [appDelegate saveContext];
+
+    // save only new IDs entity
+    NSSet* newMinusOldIds = [newMinusOldSet valueForKey:@"imageId"];
+    [self saveData:newMinusOldIds];
     }
     
   } else {
+    
     // add all images to list.
     [_imageList addObjectsFromArray:images];
+    
+    //save all IDs to entity
+    [self saveData:newIDs];
     NSLog(@"%@ NEW -Images added.",[@(images.count) stringValue]);
   }
 }
 
+- (void) saveData :(NSSet *)images {
+  
+  for (NSSet *imageID in images) {
+    NSLog(@"Saving data for imageID: %@", imageID);
+    
+    NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:context];
+    [object setValue:imageID forKey:@"imageId"];
+    
+//    NSError *error = nil;
+//    if(![context save:&error]) {
+//      NSLog(@"Failed to save - error: %@", [error localizedDescription]);
+//    }
+    [appDelegate saveContext];
+  }
+}
 
 #pragma mark - Helper methods
 -(void) updateCollectionViewData {
@@ -175,14 +209,14 @@
 #pragma mark Initialize fetched results controller
 - (void)initializeFetchedResultsController
 {
-  NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Images"];
+  NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Image"];
   
   NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
   
   [request setSortDescriptors:@[dateSort]];
   
   [self setFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]];
-//  [[self fetchedResultsController] setDelegate:self];
+  [[self fetchedResultsController] setDelegate:self];
   
   NSError *error = nil;
   if (![[self fetchedResultsController] performFetch:&error]) {
