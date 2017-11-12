@@ -8,12 +8,19 @@
 
 #import "HistoryViewController.h"
 #import "HistoryCell.h"
+//#import "Image+CoreDataClass.h"
+#import "AppDelegate.h"
 
-@interface HistoryViewController ()
+
+@interface HistoryViewController () {
+  AppDelegate *appDelegate;
+  NSManagedObjectContext *context;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) NSArray *historyList;
+
 @end
 
 @implementation HistoryViewController
@@ -22,24 +29,27 @@
   [super viewDidLoad];
   
   
+  
+  // Get Context
+  appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+  context = appDelegate.persistentContainer.viewContext;
+  
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   
-//  self.historyList = _array;
-  [[self tableView]reloadData];
+  self.historyList = [[NSArray alloc]init];
+  
+  [self getImages];
   
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  
-  self.historyList = _array;
-  [[self tableView]reloadData];
+
+  self.historyList = nil;
+  [self getImages];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-  self.historyList = nil;
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return self.historyList.count;
 }
@@ -68,6 +78,30 @@
   return 1;
 }
 
+#pragma mark - Helper methods
+-(void) updateTableViewData {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self.tableView reloadData];
+  });
+}
 
+-(void) getImages {
+  NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Image"];
+  
+  NSError *error = nil;
+  NSArray *results = [context executeFetchRequest:request error:&error];
+  if (!results) {
+    NSLog(@"Error fetching Employee objects: %@\n%@", [error localizedDescription], [error userInfo]);
+    abort();
+  }
+  
+      NSSet* newset = [NSSet setWithArray:results];
+      NSSet* fetchedIDs = [newset valueForKey:@"imageId"];
+      NSArray *arrList = [fetchedIDs allObjects];
+      NSLog(@"arrayList prepareSegue: %@",arrList);
+
+  self.historyList = arrList;
+  [self.tableView reloadData];
+}
 
 @end

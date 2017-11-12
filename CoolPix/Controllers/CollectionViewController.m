@@ -63,15 +63,17 @@
 - (IBAction)clearHistory:(id)sender {
   [[self imageList]removeAllObjects];
   
-  for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
-    [image isDeleted];
-  }
-  
+//  for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
+//    [image isDeleted];
+//  }
+//
+  [context deletedObjects];
+
 //  NSError *error = nil;
 //  if(![context save:&error]) {
 //    NSLog(@"Failed to save after delete- error: %@", [error localizedDescription]);
 //  }
-//
+
   [appDelegate saveContext];
   
   // relooad collection view after delete.
@@ -231,18 +233,18 @@
 }
 
 #pragma mark - Prepare for segue
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-  if ([[segue identifier] isEqualToString:@"historySegue"]) {
-    
-    HistoryViewController *vc = (HistoryViewController *)segue.destinationViewController;
-    NSArray *results = self.fetchedResultsController.fetchedObjects;
-    NSSet* newset = [NSSet setWithArray:results];
-    NSSet* newIDs = [newset valueForKey:@"imageId"];
-    NSArray *arrList = [newIDs allObjects];
-    NSLog(@"arrayList prepareSegue: %@",arrList);
-    vc.array = arrList;
-  }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//  if ([[segue identifier] isEqualToString:@"historySegue"]) {
+//    
+//    HistoryViewController *vc = (HistoryViewController *)segue.destinationViewController;
+//    NSArray *results = self.fetchedResultsController.fetchedObjects;
+//    NSSet* newset = [NSSet setWithArray:results];
+//    NSSet* newIDs = [newset valueForKey:@"imageId"];
+//    NSArray *arrList = [newIDs allObjects];
+//    NSLog(@"arrayList prepareSegue: %@",arrList);
+//    vc.array = arrList;
+//  }
+//}
 
 
 
