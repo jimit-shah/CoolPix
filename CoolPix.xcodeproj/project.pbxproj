@@ -20,6 +20,7 @@
 		EF8DD3311FB6923A00CA746B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF8DD3301FB6923A00CA746B /* Assets.xcassets */; };
 		EF8DD3341FB6923A00CA746B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF8DD3321FB6923A00CA746B /* LaunchScreen.storyboard */; };
 		EF8DD3371FB6923A00CA746B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF8DD3361FB6923A00CA746B /* main.m */; };
+		EFF261DE1FB7F5F70030C27A /* HistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EFF261DD1FB7F5F70030C27A /* HistoryCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		EF8DD3331FB6923A00CA746B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF8DD3351FB6923A00CA746B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF8DD3361FB6923A00CA746B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EFF261DC1FB7F5F70030C27A /* HistoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryCell.h; sourceTree = "<group>"; };
+		EFF261DD1FB7F5F70030C27A /* HistoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 			children = (
 				EF5A58DC1FB7835400D2E015 /* ImageCell.h */,
 				EF5A58DD1FB7835400D2E015 /* ImageCell.m */,
+				EFF261DC1FB7F5F70030C27A /* HistoryCell.h */,
+				EFF261DD1FB7F5F70030C27A /* HistoryCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				EF5A58DE1FB7835400D2E015 /* ImageCell.m in Sources */,
 				EF8DD3291FB6923A00CA746B /* CollectionViewController.m in Sources */,
 				EF8DD3371FB6923A00CA746B /* main.m in Sources */,
+				EFF261DE1FB7F5F70030C27A /* HistoryCell.m in Sources */,
 				EF5A58EB1FB7B0B900D2E015 /* Image+CoreDataProperties.m in Sources */,
 				EF5A58E11FB7849E00D2E015 /* Dog.m in Sources */,
 				EF5A58DB1FB7723C00D2E015 /* HistoryViewController.m in Sources */,

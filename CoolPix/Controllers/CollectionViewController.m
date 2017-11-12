@@ -11,6 +11,7 @@
 #import "HTTPService.h"
 #import "Dog.h"
 #import "ImageCell.h"
+#import "HistoryViewController.h"
 
 @interface CollectionViewController () {
   AppDelegate *appDelegate;
@@ -52,6 +53,10 @@
 #pragma mark fetchDogs
 - (IBAction)fetchDogs:(id)sender {
   [self getImages];
+}
+
+- (IBAction)showHistory:(id)sender {
+  [self performSegueWithIdentifier:@"historySegue" sender:sender];
 }
 
 #pragma mark clearHistory
@@ -206,7 +211,7 @@
  }
 
 
-#pragma mark Initialize fetched results controller
+#pragma mark - Initialize fetched results controller
 - (void)initializeFetchedResultsController
 {
   NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Image"];
@@ -222,6 +227,20 @@
   if (![[self fetchedResultsController] performFetch:&error]) {
     NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
     abort();
+  }
+}
+
+#pragma mark - Prepare for segue
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+  if ([[segue identifier] isEqualToString:@"historySegue"]) {
+    
+    HistoryViewController *vc = (HistoryViewController *)segue.destinationViewController;
+    NSArray *results = self.fetchedResultsController.fetchedObjects;
+    NSSet* newset = [NSSet setWithArray:results];
+    NSSet* newIDs = [newset valueForKey:@"imageId"];
+    NSArray *arrList = [newIDs allObjects];
+    NSLog(@"arrayList prepareSegue: %@",arrList);
+    vc.array = arrList;
   }
 }
 

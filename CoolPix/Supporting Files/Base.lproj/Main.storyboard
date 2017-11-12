@@ -134,12 +134,13 @@
                     <navigationItem key="navigationItem" title="Dogs" id="DZ1-7E-bTq">
                         <barButtonItem key="rightBarButtonItem" title="History" id="P3z-4L-Ma4">
                             <connections>
-                                <segue destination="goT-xg-dnN" kind="show" id="O7T-1d-1wu"/>
+                                <action selector="showHistory:" destination="BYZ-38-t0r" id="a4j-bg-zdt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="uHn-uW-xfz" id="1Nn-j3-SI8"/>
+                        <segue destination="goT-xg-dnN" kind="show" identifier="historySegue" id="aBY-fk-z9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -158,22 +159,29 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" textLabel="655-fi-mcO" style="IBUITableViewCellStyleDefault" id="vNG-XW-zRN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" id="vNG-XW-zRN" customClass="HistoryCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vNG-XW-zRN" id="2Bx-cX-hP0">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="655-fi-mcO">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.666666666666664"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2q-4i-g67">
+                                                    <rect key="frame" x="166" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="f2q-4i-g67" firstAttribute="centerY" secondItem="vNG-XW-zRN" secondAttribute="centerY" id="Evu-aD-vX2"/>
+                                            <constraint firstItem="f2q-4i-g67" firstAttribute="centerX" secondItem="vNG-XW-zRN" secondAttribute="centerX" id="bzt-I8-XCR"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="f2q-4i-g67" id="YDJ-HW-K8q"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -188,6 +196,9 @@
                         <viewLayoutGuide key="safeArea" id="Gmi-jK-1dp"/>
                     </view>
                     <navigationItem key="navigationItem" title="History" id="7x3-Ln-Mnx"/>
+                    <connections>
+                        <outlet property="tableView" destination="Gmh-vc-dU0" id="sEg-jf-8sC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAy-ow-W3Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
