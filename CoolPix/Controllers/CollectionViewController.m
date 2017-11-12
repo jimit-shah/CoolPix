@@ -72,10 +72,44 @@
 
 #pragma mark clearHistory
 - (IBAction)clearHistory:(id)sender {
-  int count = 0;
   
   [self initializeFetchedResultsController];
+  
   if (self.fetchedResultsController.fetchedObjects.count > 0) {
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:nil
+                                 message:@"Are you sure you want to clear history!"
+                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //Add Buttons
+    UIAlertAction* yesButton = [UIAlertAction
+                                actionWithTitle:@"Yes"
+                                style:UIAlertActionStyleDestructive
+                                handler:^(UIAlertAction * action) {
+                                  [self deleteAllData];
+                                }];
+    
+    UIAlertAction* noButton = [UIAlertAction
+                               actionWithTitle:@"No"
+                               style:UIAlertActionStyleCancel
+                               handler:^(UIAlertAction * action) {
+                                 //Handle no, thanks button
+                               }];
+    
+    //Add actions to alert controller
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+  } else {
+    [self showAlert:nil :@"Nothing to delete!"];
+  }
+  
+}
+
+#pragma mark deleteAllData
+  -(void)deleteAllData {
+    int count = 0;
     [[self imageList]removeAllObjects];
     for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
       [context deleteObject:image];
@@ -86,10 +120,7 @@
     [self updateUI];
     NSLog(@"All history deleted %@", [@(count) stringValue]);
     [self showAlert:nil :@"All history deleted!"];
-  } else {
-    [self showAlert:nil :@"Nothing to delete!"];
   }
-}
 
 # pragma mark -GET Images (HTTP Get)
 -(void) getImages {
