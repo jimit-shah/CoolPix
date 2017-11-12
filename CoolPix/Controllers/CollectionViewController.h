@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
-@interface CollectionViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface CollectionViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 
 
 @end

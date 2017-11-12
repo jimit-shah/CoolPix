@@ -7,13 +7,18 @@
 //
 
 #import "CollectionViewController.h"
+#import "AppDelegate.h"
 #import "HTTPService.h"
 #import "Dog.h"
 #import "ImageCell.h"
 
-@interface CollectionViewController ()
+@interface CollectionViewController () {
+  AppDelegate *appDelegate;
+  NSManagedObjectContext *context;
+}
 
 #pragma mark - Properties
+@property (nonatomic,strong)NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSMutableArray *imageList;
 
 #pragma mark - Outlets
@@ -35,9 +40,26 @@
   
   [self getImages];
   
-  // relooad collection view
-  [[self collectionView]reloadData];
 }
+
+#pragma mark - Actions
+
+- (IBAction)fetchDogs:(id)sender {
+  [self getImages];
+}
+- (IBAction)clearHistory:(id)sender {
+  [[self imageList]removeAllObjects];
+  
+  for (NSManagedObject *image in [[self fetchedResultsController]fetchedObjects]) {
+    [image isDeleted];
+  }
+  [appDelegate saveContext];
+  
+  // relooad collection view after delete.
+  [self updateCollectionViewData];
+  NSLog(@"All history deleted.");
+}
+
 
 # pragma mark -getImages
 -(void) getImages {
@@ -64,9 +86,6 @@
       }
       
       // Add to the list
-      //self.imageList = array;
-      
-      //[self.imageList addObjectsFromArray:array];
       [self updateHistoryList:array];
       //NSLog(@"ImageList Count: %@",[@(self.imageList.count) stringValue]);
       
@@ -79,20 +98,17 @@
 }
 
 #pragma mark - Update HistoryList
--(void) updateHistoryList:(NSMutableArray *)images {
+- (void) updateHistoryList :(NSArray *)images
+{
+  NSArray *results = [self fetchedResultsController].fetchedObjects;
   
-  if (_imageList.count > 0) {
+  if (results.count > 0) {
     //Create NSSet from Array
-    NSSet* oldset = [NSSet setWithArray:_imageList];
+    NSSet* oldset = [NSSet setWithArray:results];
     NSSet* newset = [NSSet setWithArray:images];
     
     // retrieve the Name of the objects in oldset
     NSSet* existingIDs = [oldset valueForKey:@"imageId"];
-    //NSLog(@"Existing IDs - %@", existingIDs);
-    
-    // only keep the objects of newset whose 'Name' are not in oldset_names
-    //NSSet* newIDs = [newset valueForKey:@"imageId"];
-    //NSLog(@"-----New IDs - %@", newIDs);
     NSSet* newMinusOldSet = [newset filteredSetUsingPredicate:
                              [NSPredicate predicateWithFormat:@"NOT imageId IN %@",existingIDs]];
     
@@ -101,12 +117,20 @@
     
     [_imageList addObjectsFromArray:newMinusOldArray];
     NSLog(@"%@ New-Old images added:",[@(newMinusOldArray.count) stringValue]);
+    
+    for (NSSet *image in newMinusOldSet) {
+      NSManagedObject *object = [NSEntityDescription insertNewObjectForEntityForName:@"Images" inManagedObjectContext:context];
+      [object setValue:image forKey:@"imageId"];
+      [appDelegate saveContext];
+    }
+    
   } else {
     // add all images to list.
     [_imageList addObjectsFromArray:images];
     NSLog(@"%@ NEW -Images added.",[@(images.count) stringValue]);
   }
 }
+
 
 #pragma mark - Helper methods
 -(void) updateCollectionViewData {
@@ -122,7 +146,6 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
   return self.imageList.count;
 }
-
 
 #pragma mark cellForItemAtIndexPath
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -143,11 +166,30 @@
 #pragma mark - Collection view delegate
 
 #pragma mark didSelectItemAtIndexPath
-
  - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 // NSString *selected = [self.imageList objectAtIndex:indexPath.row];
 // NSLog(@"selected=%@", selected);
  }
+
+
+#pragma mark Initialize fetched results controller
+- (void)initializeFetchedResultsController
+{
+  NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Images"];
+  
+  NSSortDescriptor *dateSort = [NSSortDescriptor sortDescriptorWithKey:@"createdAt" ascending:NO];
+  
+  [request setSortDescriptors:@[dateSort]];
+  
+  [self setFetchedResultsController:[[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:context sectionNameKeyPath:nil cacheName:nil]];
+//  [[self fetchedResultsController] setDelegate:self];
+  
+  NSError *error = nil;
+  if (![[self fetchedResultsController] performFetch:&error]) {
+    NSLog(@"Failed to initialize FetchedResultsController: %@\n%@", [error localizedDescription], [error userInfo]);
+    abort();
+  }
+}
 
 
 
