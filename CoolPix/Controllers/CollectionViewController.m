@@ -27,6 +27,9 @@
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
 #pragma mark - Outlets
+
+@property (weak, nonatomic) IBOutlet UITextField *searchField;
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *historyButton;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
@@ -55,14 +58,17 @@
     _imageList = [[NSMutableArray alloc]init];
   }
   
-  [self getImages];
+  [self getImages:nil];
 }
 
 #pragma mark - Actions
 
+- (IBAction)searchPressed:(id)sender {
+  [self getImages:[self searchField].text];
+}
 #pragma mark fetchDogs
 - (IBAction)fetchDogs:(id)sender {
-  [self getImages];
+//  [self getImages];
 }
 
 - (IBAction)showHistory:(id)sender {
@@ -122,13 +128,15 @@
   }
 
 # pragma mark -GET Images (HTTP Get)
--(void) getImages {
+-(void) getImages :(nullable NSString *)searchText {
   
+  if (searchText == nil) {
+    searchText = @"dogs";
+  }
   // first fetch data from db.
   [self disableButtons];
   [self initializeFetchedResultsController];
-  
-  [[HTTPService instance]getImages:^(NSDictionary * _Nullable dataDict, NSString * _Nullable errMessage) {
+  [[HTTPService instance]getImages:searchText :^(NSDictionary * _Nullable dataDict, NSString * _Nullable errMessage) {
     if (dataDict) {
       //NSLog(@"Dictionary: %@", dataDict.debugDescription);
       
@@ -199,7 +207,7 @@
     } else {
       //fetch images again from main queue.
       dispatch_async(dispatch_get_main_queue(), ^{
-        [self getImages];
+        [self getImages:nil];
       });
     }
   } else {

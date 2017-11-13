@@ -13,7 +13,7 @@ typedef void (^onComplete)(NSDictionary * _Nullable dataDict, NSString * _Nullab
 @interface HTTPService : NSObject
 
 + (id _Nullable) instance;
-- (void) getImages:(nullable onComplete)completionHandler;
+- (void) getImages:(NSString *_Nonnull)searchText :(nullable onComplete) completionHandler;
 - (NSURL *_Nonnull)URLByAppendingQueryParameters:(NSString *_Nonnull)baseURL withQueryParameters:(NSDictionary *_Nullable)queryParameters;
 
 @end
