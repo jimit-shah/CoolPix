@@ -55,7 +55,6 @@
     _imageList = [[NSMutableArray alloc]init];
   }
   
-  [self initializeFetchedResultsController];
   [self getImages];
 }
 
@@ -125,8 +124,9 @@
 # pragma mark -GET Images (HTTP Get)
 -(void) getImages {
   
-  [[self historyButton]setEnabled:false];
-  [self startSpinner:self :[self spinner]];
+  // first fetch data from db.
+  [self disableButtons];
+  [self initializeFetchedResultsController];
   
   [[HTTPService instance]getImages:^(NSDictionary * _Nullable dataDict, NSString * _Nullable errMessage) {
     if (dataDict) {
@@ -160,6 +160,14 @@
       [self showAlert:@"Error" :@"Something went wrong, please try again."];
     }
   }];
+}
+
+#pragma mark disableButtons
+- (void)disableButtons {
+  [[self fetchDogsButton]setEnabled:false];
+  [[self clearHistoryButton]setEnabled:false];
+  [[self historyButton]setEnabled:false];
+  [self startSpinner:self :[self spinner]];
 }
 
 #pragma mark - Update HistoryList
@@ -237,6 +245,9 @@
   dispatch_async(dispatch_get_main_queue(), ^{
     [self.collectionView reloadData];
     [self stopSpinner:self :[self spinner]];
+    [[self historyButton]setEnabled:true];
+    [[self fetchDogsButton]setEnabled:true];
+    [[self clearHistoryButton]setEnabled:true];
     [[self historyButton]setEnabled:true];
   });
 }
