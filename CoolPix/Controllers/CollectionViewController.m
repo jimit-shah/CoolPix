@@ -29,6 +29,7 @@
 #pragma mark - Outlets
 
 @property (weak, nonatomic) IBOutlet UITextField *searchField;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *historyButton;
@@ -63,12 +64,9 @@
 
 #pragma mark - Actions
 
-- (IBAction)searchPressed:(id)sender {
-  [self getImages:[self searchField].text];
-}
 #pragma mark fetchDogs
-- (IBAction)fetchDogs:(id)sender {
-//  [self getImages];
+- (IBAction)fetchAnimals:(id)sender {
+  [self getImages:[self searchField].text];
 }
 
 - (IBAction)showHistory:(id)sender {
@@ -131,7 +129,7 @@
 -(void) getImages :(nullable NSString *)searchText {
   
   if (searchText == nil) {
-    searchText = @"dogs";
+    searchText = @"";
   }
   // first fetch data from db.
   [self disableButtons];
@@ -244,6 +242,7 @@
   
   self.clearHistoryButton.layer.cornerRadius = 5.0;
   self.fetchDogsButton.layer.cornerRadius = 5.0;
+  self.searchButton.layer.cornerRadius = 5.0;
   
   self.spinner = [[UIActivityIndicatorView alloc]init];
 }

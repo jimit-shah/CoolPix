@@ -30,6 +30,7 @@
 
 # pragma mark - getImages (GET)
 - (void) getImages:(NSString *_Nonnull)searchText :(nullable onComplete) completionHandler {
+  NSString *formattedSearch = [searchText stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
   
   NSURLSession *session = [NSURLSession sharedSession];
   
@@ -38,7 +39,7 @@
   
   NSDictionary *parameters = @{
                                @"key": @URL_API,
-                               @"q": searchText,
+                               @"q": formattedSearch,
                                @"image_type": @URL_IMAGE_TYPE,
                                @"category": @URL_CAT,
                                @"page": [@(randomInt) stringValue]
