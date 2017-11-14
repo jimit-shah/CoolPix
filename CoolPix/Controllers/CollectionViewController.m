@@ -152,7 +152,6 @@
           }
         }
       }
-      
       // Add to the list
       [self updateHistoryList:array];
       
@@ -209,12 +208,15 @@
       });
     }
   } else {
-    // add all images to list.
-    [_imageList addObjectsFromArray:images];
-    NSLog(@"%@ NEW Images added to list.",[@(images.count) stringValue]);
-    
-    //save all IDs to entity
-    [self saveData:newIDs];
+    if (images.count > 0) {
+      // add all images to list.
+      [_imageList addObjectsFromArray:images];
+      //save all IDs to entity
+      [self saveData:newIDs];
+      NSLog(@"%@ NEW Images added to list.",[@(images.count) stringValue]);
+    } else {
+      [self showAlert:nil :@"No images found, please try again."];
+    }
   }
 }
 
@@ -240,6 +242,7 @@
   spacing = 10.0;
   lineSpacing = 15.0;
   
+  self.searchField.delegate = self;
   self.clearHistoryButton.layer.cornerRadius = 5.0;
   self.fetchDogsButton.layer.cornerRadius = 5.0;
   self.searchButton.layer.cornerRadius = 5.0;
@@ -375,4 +378,18 @@
   [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
+
+#pragma mark Text Field Delegates
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+  [textField resignFirstResponder];
+//  [self getImages:[self searchField].text];
+  return true;
+}
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//  UITouch *touch = [touches anyObject];
+//  if (touch.phase == UITouchPhaseBegan) {
+//    [self.searchField resignFirstResponder];
+//  }
+//}
 @end
