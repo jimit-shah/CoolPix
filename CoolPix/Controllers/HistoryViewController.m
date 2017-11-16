@@ -39,6 +39,8 @@
   self.tableView.delegate = self;
   self.tableView.dataSource = self;
   
+  self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
+  
   self.historyList = [[NSArray alloc]init];
   
   [self getImages];

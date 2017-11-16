@@ -22,7 +22,7 @@
 
 - (void)updateUI:(NSNumber *)item{
 
-  [[self titleLabel]setText:[NSString stringWithFormat:@"dog-%@",item]];
+  [[self titleLabel]setText:[NSString stringWithFormat:@"animal-%@",item]];
 }
 
 //-(void)configureCell :(NSManagedObject*)object {

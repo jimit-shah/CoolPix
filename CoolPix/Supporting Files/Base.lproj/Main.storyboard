@@ -39,8 +39,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uHn-uW-xfz">
-                                <rect key="frame" x="0.0" y="130" width="375" height="533"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="519"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="h3B-kv-Oy0">
                                     <size key="itemSize" width="180" height="156"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -76,14 +76,14 @@
                                 <rect key="frame" x="0.0" y="663" width="375" height="115"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VVq-fC-y8e">
-                                        <rect key="frame" x="101.66666666666669" y="18" width="172" height="79"/>
+                                        <rect key="frame" x="104.66666666666669" y="18" width="166" height="79"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Kv-HG-m1K">
-                                                <rect key="frame" x="0.0" y="0.0" width="172" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="166" height="40"/>
                                                 <color key="backgroundColor" red="0.01151769608259201" green="0.55232739448547363" blue="0.87317311763763428" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                                                 <inset key="contentEdgeInsets" minX="20" minY="8" maxX="20" maxY="8"/>
-                                                <state key="normal" title="Fetch Animals">
+                                                <state key="normal" title="Fetch Images">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -91,7 +91,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v36-OV-cbh">
-                                                <rect key="frame" x="29.999999999999986" y="48" width="112.00000000000001" height="31"/>
+                                                <rect key="frame" x="26.999999999999986" y="48" width="112.00000000000001" height="31"/>
                                                 <color key="backgroundColor" red="0.83246748100000001" green="0.088623225819999998" blue="0.074618214569999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="31" id="AmR-aI-Ze7"/>
@@ -118,37 +118,24 @@
                                     <constraint firstAttribute="height" constant="115" id="ouC-Ra-FJA"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="l6x-bK-JgX">
-                                <rect key="frame" x="36.666666666666657" y="94" width="302" height="30"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="center" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search Animal Name" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ycw-5z-gKj">
-                                        <rect key="frame" x="0.0" y="0.0" width="302" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="MEt-Lg-Cdj"/>
-                                            <constraint firstAttribute="height" constant="30" id="eG3-kE-QMO"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
-                                    </textField>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="dcK-B2-Ur2"/>
-                                    <constraint firstAttribute="width" constant="302" id="mOO-Fz-6OY"/>
-                                </constraints>
-                            </stackView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="RXv-5g-LiR">
+                                <rect key="frame" x="0.0" y="88" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="RXv-5g-LiR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="26R-pI-JGa"/>
                             <constraint firstItem="Zli-8T-xzg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2HX-51-nJR"/>
-                            <constraint firstItem="Zli-8T-xzg" firstAttribute="top" secondItem="uHn-uW-xfz" secondAttribute="bottom" id="2M2-1e-SaC"/>
-                            <constraint firstItem="uHn-uW-xfz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="69w-rl-cG8"/>
-                            <constraint firstItem="uHn-uW-xfz" firstAttribute="top" secondItem="l6x-bK-JgX" secondAttribute="bottom" constant="6" id="M4a-Nk-Hn9"/>
-                            <constraint firstItem="l6x-bK-JgX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="MOM-IH-oh4"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="top" secondItem="RXv-5g-LiR" secondAttribute="bottom" id="BpG-9Y-7vS"/>
+                            <constraint firstItem="RXv-5g-LiR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="JeS-k0-8TD"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hNy-QJ-UYW"/>
+                            <constraint firstItem="Zli-8T-xzg" firstAttribute="top" secondItem="uHn-uW-xfz" secondAttribute="bottom" id="krw-aW-kPO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Zli-8T-xzg" secondAttribute="bottom" id="nVP-7A-1Pp"/>
                             <constraint firstItem="Zli-8T-xzg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oOS-fS-cwT"/>
-                            <constraint firstItem="uHn-uW-xfz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="oq0-J2-VxF"/>
-                            <constraint firstItem="l6x-bK-JgX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yz8-7G-ynl"/>
+                            <constraint firstItem="RXv-5g-LiR" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="r0K-o7-xZb"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="t4A-bx-JcT"/>
+                            <constraint firstItem="uHn-uW-xfz" firstAttribute="top" secondItem="RXv-5g-LiR" secondAttribute="bottom" id="uWW-bl-Rkd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -162,10 +149,10 @@
                     <connections>
                         <outlet property="clearHistoryButton" destination="v36-OV-cbh" id="ikv-Nx-7ej"/>
                         <outlet property="collectionView" destination="uHn-uW-xfz" id="1Nn-j3-SI8"/>
-                        <outlet property="fetchDogsButton" destination="5Kv-HG-m1K" id="rZg-p9-8WK"/>
+                        <outlet property="fetchImagesButton" destination="5Kv-HG-m1K" id="Zxd-NR-1r4"/>
                         <outlet property="flowLayout" destination="h3B-kv-Oy0" id="Tua-na-fFT"/>
                         <outlet property="historyButton" destination="P3z-4L-Ma4" id="nBf-CV-7Cq"/>
-                        <outlet property="searchField" destination="ycw-5z-gKj" id="kkq-xj-DMJ"/>
+                        <outlet property="searchBar" destination="RXv-5g-LiR" id="sq4-JY-0Ck"/>
                         <segue destination="goT-xg-dnN" kind="show" identifier="historySegue" id="aBY-fk-z9w"/>
                     </connections>
                 </viewController>

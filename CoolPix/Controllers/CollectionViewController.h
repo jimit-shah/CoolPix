@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface CollectionViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate>
-
+@interface CollectionViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UISearchBarDelegate>
 
 @end
 

@@ -27,14 +27,11 @@
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 
 #pragma mark - Outlets
-
-@property (weak, nonatomic) IBOutlet UITextField *searchField;
-@property (weak, nonatomic) IBOutlet UIButton *searchButton;
-
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *historyButton;
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
-@property (weak, nonatomic) IBOutlet UIButton *fetchDogsButton;
+@property (weak, nonatomic) IBOutlet UIButton *fetchImagesButton;
 @property (weak, nonatomic) IBOutlet UIButton *clearHistoryButton;
 
 @end
@@ -52,6 +49,8 @@
   self.collectionView.dataSource = self;
   self.collectionView.delegate = self;
   
+  [self createSearchBar];
+  
   // configure UI
   [self configureUI];
   
@@ -64,9 +63,9 @@
 
 #pragma mark - Actions
 
-#pragma mark fetchDogs
+#pragma mark fetchAnimals
 - (IBAction)fetchAnimals:(id)sender {
-  [self getImages:[self searchField].text];
+  [self getImages:self.searchBar.text];
 }
 
 - (IBAction)showHistory:(id)sender {
@@ -108,6 +107,15 @@
     [self showAlert:nil :@"Nothing to delete!"];
   }
   
+}
+
+-(void)createSearchBar {
+  self.navigationController.navigationBar.prefersLargeTitles = false;
+  
+  self.searchBar.showsCancelButton = true;
+  self.searchBar.placeholder = @"Search Name";
+  self.searchBar.delegate = self;
+  [self searchBar].searchBarStyle = UISearchBarIconClear;
 }
 
 #pragma mark deleteAllData
@@ -169,7 +177,7 @@
 
 #pragma mark disableButtons
 - (void)disableButtons {
-  [[self fetchDogsButton]setEnabled:false];
+  [[self fetchImagesButton]setEnabled:false];
   [[self clearHistoryButton]setEnabled:false];
   [[self historyButton]setEnabled:false];
   [self startSpinner:self :[self spinner]];
@@ -242,10 +250,10 @@
   spacing = 10.0;
   lineSpacing = 15.0;
   
-  self.searchField.delegate = self;
+//  self.searchField.delegate = self;
   self.clearHistoryButton.layer.cornerRadius = 5.0;
-  self.fetchDogsButton.layer.cornerRadius = 5.0;
-  self.searchButton.layer.cornerRadius = 5.0;
+  self.fetchImagesButton.layer.cornerRadius = 5.0;
+//  self.searchButton.layer.cornerRadius = 5.0;
   
   self.spinner = [[UIActivityIndicatorView alloc]init];
 }
@@ -256,7 +264,7 @@
     [self.collectionView reloadData];
     [self stopSpinner:self :[self spinner]];
     [[self historyButton]setEnabled:true];
-    [[self fetchDogsButton]setEnabled:true];
+    [[self fetchImagesButton]setEnabled:true];
     [[self clearHistoryButton]setEnabled:true];
     [[self historyButton]setEnabled:true];
   });
@@ -378,18 +386,29 @@
   [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
+#pragma mark - Search Text Controller Delegates
 
-#pragma mark Text Field Delegates
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+  [self getImages:searchBar.text];
+  [searchBar resignFirstResponder];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+  [searchBar resignFirstResponder];
+}
+
+
+#pragma mark - Text Field Delegates
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
   [textField resignFirstResponder];
-//  [self getImages:[self searchField].text];
   return true;
 }
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//  UITouch *touch = [touches anyObject];
-//  if (touch.phase == UITouchPhaseBegan) {
-//    [self.searchField resignFirstResponder];
-//  }
-//}
 @end
