@@ -41,7 +41,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uHn-uW-xfz">
                                 <rect key="frame" x="0.0" y="144" width="375" height="519"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="h3B-kv-Oy0">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="h3B-kv-Oy0" customClass="CollectionViewFlowLayout">
                                     <size key="itemSize" width="180" height="156"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -150,7 +150,7 @@
                         <outlet property="clearHistoryButton" destination="v36-OV-cbh" id="ikv-Nx-7ej"/>
                         <outlet property="collectionView" destination="uHn-uW-xfz" id="1Nn-j3-SI8"/>
                         <outlet property="fetchImagesButton" destination="5Kv-HG-m1K" id="Zxd-NR-1r4"/>
-                        <outlet property="flowLayout" destination="h3B-kv-Oy0" id="Tua-na-fFT"/>
+                        <outlet property="flowLayout" destination="h3B-kv-Oy0" id="yWt-cP-sUP"/>
                         <outlet property="historyButton" destination="P3z-4L-Ma4" id="nBf-CV-7Cq"/>
                         <outlet property="searchBar" destination="RXv-5g-LiR" id="sq4-JY-0Ck"/>
                         <segue destination="goT-xg-dnN" kind="show" identifier="historySegue" id="aBY-fk-z9w"/>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF505FA71FBE2E5D00C4E20C /* CollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EF505FA61FBE2E5D00C4E20C /* CollectionViewFlowLayout.m */; };
 		EF5A58DB1FB7723C00D2E015 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */; };
 		EF5A58DE1FB7835400D2E015 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58DD1FB7835400D2E015 /* ImageCell.m */; };
 		EF5A58E11FB7849E00D2E015 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = EF5A58E01FB7849E00D2E015 /* Dog.m */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EF505FA51FBE2E5D00C4E20C /* CollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		EF505FA61FBE2E5D00C4E20C /* CollectionViewFlowLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		EF5A58D91FB7723C00D2E015 /* HistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		EF5A58DA1FB7723C00D2E015 /* HistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		EF5A58DC1FB7835400D2E015 /* ImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
@@ -88,6 +91,8 @@
 		EF5A58D71FB7714E00D2E015 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EF505FA51FBE2E5D00C4E20C /* CollectionViewFlowLayout.h */,
+				EF505FA61FBE2E5D00C4E20C /* CollectionViewFlowLayout.m */,
 				EF5A58DC1FB7835400D2E015 /* ImageCell.h */,
 				EF5A58DD1FB7835400D2E015 /* ImageCell.m */,
 				EFF261DC1FB7F5F70030C27A /* HistoryCell.h */,
@@ -233,6 +238,7 @@
 				EF5A58DE1FB7835400D2E015 /* ImageCell.m in Sources */,
 				EF8DD3291FB6923A00CA746B /* CollectionViewController.m in Sources */,
 				EF8DD3371FB6923A00CA746B /* main.m in Sources */,
+				EF505FA71FBE2E5D00C4E20C /* CollectionViewFlowLayout.m in Sources */,
 				EFF261DE1FB7F5F70030C27A /* HistoryCell.m in Sources */,
 				EF5A58EB1FB7B0B900D2E015 /* Image+CoreDataProperties.m in Sources */,
 				EF5A58E11FB7849E00D2E015 /* Dog.m in Sources */,

@@ -12,6 +12,7 @@
 #import "Dog.h"
 #import "ImageCell.h"
 #import "HistoryViewController.h"
+#import "CollectionViewFlowLayout.h"
 
 @interface CollectionViewController () {
   AppDelegate *appDelegate;
@@ -30,15 +31,17 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *historyButton;
-@property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
+@property (weak, nonatomic) IBOutlet CollectionViewFlowLayout *flowLayout;
 @property (weak, nonatomic) IBOutlet UIButton *fetchImagesButton;
 @property (weak, nonatomic) IBOutlet UIButton *clearHistoryButton;
+
 
 @end
 
 @implementation CollectionViewController
 
 #pragma mark - Lifecycle
+
 - (void)viewDidLoad {
   [super viewDidLoad];
   
@@ -60,6 +63,12 @@
   
   [self getImages:nil];
 }
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+  
+  [self.collectionView.collectionViewLayout invalidateLayout];
+}
+
 
 #pragma mark - Actions
 
@@ -353,37 +362,6 @@
   
   [alert addAction:okButton];
   [self presentViewController:alert animated:YES completion:nil];
-}
-
-#pragma mark - UICollection View Flow Layout
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-  
-  CGRect screenRect = [[UIScreen mainScreen] bounds];
-  CGFloat screenWidth = screenRect.size.width;
-  float cellWidth = ((screenWidth) / 2.0 - (inset + spacing));
-  CGSize size = CGSizeMake(cellWidth, cellWidth);
-  return size;
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-  
-  return UIEdgeInsetsMake(inset, inset, inset, inset);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-  
-  return inset;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-  
-  return inset;
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-  
-  [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 #pragma mark - Search Text Controller Delegates
