@@ -29,7 +29,16 @@
   
   CGRect screenRect = [[UIScreen mainScreen] bounds];
   CGFloat screenWidth = screenRect.size.width;
-  float cellWidth = ((screenWidth) / 2.0 - (inset + spacing));
+  CGFloat screenHeight = screenRect.size.height;
+  float cellWidth = 0;
+  
+  // define number of columns based on potrait/landscape mode.
+  if (screenWidth > screenHeight) {
+  cellWidth = ((screenWidth) / 3.0 - (inset + spacing));
+  } else {
+  cellWidth = ((screenWidth) / 2.0 - (inset + spacing));
+  }
+  
   CGSize size = CGSizeMake(cellWidth, cellWidth);
   return size;
 }

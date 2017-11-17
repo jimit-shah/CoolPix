@@ -259,10 +259,8 @@
   spacing = 10.0;
   lineSpacing = 15.0;
   
-//  self.searchField.delegate = self;
   self.clearHistoryButton.layer.cornerRadius = 5.0;
   self.fetchImagesButton.layer.cornerRadius = 5.0;
-//  self.searchButton.layer.cornerRadius = 5.0;
   
   self.spinner = [[UIActivityIndicatorView alloc]init];
 }
